@@ -1,0 +1,30 @@
+Enum - 
+
+-> It is a special data type that consists of a set of pre-defined named values separated by commas. 
+-> These named values are also known as elements or enumerators or enum instances. 
+-> Since the values in the enum type are constant, you should always represent them in UPPERCASE letters.
+-> You can use an Enum type when you need a fixed set of pre-defined constant values that are known at the compile-time itself.
+-> Examples can be days of the week, seasons of the year, etc.
+
+-> The following characteristics make enum a ‘special’ class:
+
+	enum constants cannot be overridden 
+	enum doesn’t support the creation of objects
+	enum can’t extend other classes
+	enum can implement interfaces like classes
+-> Syntax:
+	In Java, to define an Enum type, the ‘enum’ keyword is used rather than ‘class’ or ‘interface’. Mentioned below is the syntax.
+
+         enum Variable_Name { VALUE_1, VALUE_2, VALUE_3, … }
+-> Enum in Java can be defined outside or within the class.
+
+
+DateTimeFormatter:
+
+-> This class is present in java.time.format package.
+-> It helps in uniformly parsing and printing the date-time objects in various inbuilt and custom formatting patterns.
+-> ofPattern() - it creates a formatter using specified pattern
+-> withLocale() - it returns a copy formatter with specified language like ENGLISH, FRENCH, GERMAN etc.
+-> parse() - it fully parses the text specified.
+-> get() - it returns integer value of specified month.
+-> ChronoField - It is an Enum containing set of fields that represents the Month of the year in numbers like Jan - 1, ..., Dec - 12

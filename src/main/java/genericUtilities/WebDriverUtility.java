@@ -3,9 +3,13 @@ package genericUtilities;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -220,6 +224,7 @@ public class WebDriverUtility {
 
 	/**
 	 * This method captures the screenshot of a web page
+	 * 
 	 * @param driver
 	 * @return String
 	 */
@@ -230,6 +235,7 @@ public class WebDriverUtility {
 
 	/**
 	 * This method captures the screenshot of a web page
+	 * 
 	 * @param driver
 	 * @param className
 	 * @param jutil
@@ -238,13 +244,81 @@ public class WebDriverUtility {
 	public String getScreenshot(WebDriver driver, String className, JavaUtility jutil) {
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File temp = ts.getScreenshotAs(OutputType.FILE);
-		File dest = new File("./Screenshots/" + className + "_" + jutil.getCurrentTime() 
-																				+ ".png");
+		File dest = new File("./Screenshots/" + className + "_" + jutil.getCurrentTime() + ".png");
 		try {
 			FileUtils.copyFile(temp, dest);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return dest.getAbsolutePath();
+	}
+
+	/**
+	 * This method scrolls till the element based on element reference
+	 * 
+	 * @param element
+	 */
+	public void scrollToElement(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true)", element);
+	}
+
+	/**
+	 * This method scrolls till the element based on element location
+	 * 
+	 * @param location
+	 */
+	public void scrollToElement(Point location) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(" + location.getX() + "," 
+														+ location.getY() + ")");
+	}
+
+	/**
+	 * This method handles alert pop up
+	 * 
+	 * @param status
+	 */
+	public void handleAlert(String status) {
+		if (status.equalsIgnoreCase("ok"))
+			driver.switchTo().alert().accept();
+		else
+			driver.switchTo().alert().dismiss();
+	}
+	
+	/**
+	 * This method returns current window reference
+	 * @return String
+	 */
+	public String getParentWindowID() {
+		return driver.getWindowHandle();
+	}
+	
+	/**
+	 * This method switches to expected window or tab based on window title
+	 * @param expectedTitle
+	 */
+	public void switchToChildWindow(String expectedTitle) {
+		Set<String> windowIDs = driver.getWindowHandles();
+		Iterator<String> it = windowIDs.iterator();
+		while(it.hasNext()) {
+			driver.switchTo().window(it.next());
+			if(driver.getTitle().contains(expectedTitle)) 
+				break;
+		}
+	}
+	
+	/**
+	 * This method closes the current window
+	 */
+	public void closeWindow() {
+		driver.close();
+	}
+	
+	/**
+	 * This method closes all the windows 
+	 */
+	public void quitAllWindows() {
+		driver.quit();
 	}
 }

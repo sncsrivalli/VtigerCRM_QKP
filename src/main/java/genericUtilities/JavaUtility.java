@@ -107,5 +107,15 @@ public class JavaUtility {
 				.parse(month)
 				.get(ChronoField.MONTH_OF_YEAR);
 	}
+	
+	/**
+	 * This method splits a string based on the split strategy provided
+	 * @param str
+	 * @param splitStrategy
+	 * @return String[]
+	 */
+	public String[] splitString(String str, String splitStrategy) {
+		return str.split(splitStrategy);
+	}
 
 }

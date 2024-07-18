@@ -298,12 +298,12 @@ public class WebDriverUtility {
 	 * This method switches to expected window or tab based on window title
 	 * @param expectedTitle
 	 */
-	public void switchToChildWindow(String expectedTitle) {
+	public void switchToWindow(String expectedUrl) {
 		Set<String> windowIDs = driver.getWindowHandles();
 		Iterator<String> it = windowIDs.iterator();
 		while(it.hasNext()) {
 			driver.switchTo().window(it.next());
-			if(driver.getTitle().contains(expectedTitle)) 
+			if(driver.getCurrentUrl().contains(expectedUrl)) 
 				break;
 		}
 	}

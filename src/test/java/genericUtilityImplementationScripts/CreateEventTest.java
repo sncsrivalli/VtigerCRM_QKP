@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,38 +13,57 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import genericUtilities.DataType;
+import genericUtilities.ExcelUtility;
+import genericUtilities.IConstantPath;
+import genericUtilities.JavaUtility;
+import genericUtilities.PropertiesUtility;
+import genericUtilities.WebDriverUtility;
+
 public class CreateEventTest {
 
 	public static void main(String[] args) {
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("http://localhost:8888/");
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		PropertiesUtility propertyUtil = new PropertiesUtility();
+		ExcelUtility excel = new ExcelUtility();
+		JavaUtility jutil = new JavaUtility();
+		WebDriverUtility driverUtil = new WebDriverUtility();
+		
+		propertyUtil.propertiesInit(IConstantPath.PROPERTIES_FILE_PATH);
+		excel.excelInit(IConstantPath.EXCEL_PATH);
+		
+		WebDriver driver = driverUtil.launchBrowser(propertyUtil.readFromProperties("browser"));
+		driverUtil.maximizeBrowser();
+		driverUtil.navigateToApp(propertyUtil.readFromProperties("url"));
+		
+		long time = (Long) jutil.convertStringToAnyDataType(propertyUtil.readFromProperties("timeouts"), 
+																				DataType.LONG);
+		driverUtil.waitTillElementFound(time);
 		
 		if(driver.getTitle().contains("vtiger CRM"))
 			System.out.println("Login Page Displayed");
 		else
-			driver.quit();
+			driverUtil.quitAllWindows();
 		
-		driver.findElement(By.name("user_name")).sendKeys("admin");
-		driver.findElement(By.name("user_password")).sendKeys("admin");
+		driver.findElement(By.name("user_name")).sendKeys(propertyUtil.readFromProperties("username"));
+		driver.findElement(By.name("user_password")).sendKeys(propertyUtil.readFromProperties("password"));
 		driver.findElement(By.id("submitButton")).submit();
 		
 		if(driver.getTitle().contains("Home"))
 			System.out.println("Home Page is Displayed");
 		else
-			driver.quit();
+			driverUtil.quitAllWindows();
 		
+		Map<String, String> map = excel.readFromExcel("EventsTestData", "Create New Event");
 		WebElement quickCreateDD = driver.findElement(By.id("qccombo"));
-		Select select = new Select(quickCreateDD);
-		select.selectByValue("Events");
+		driverUtil.handleDropdown(quickCreateDD, map.get("Quick Create"));
 		
-		driver.findElement(By.name("subject")).sendKeys("Event1");
+		driver.findElement(By.name("subject")).sendKeys(map.get("Subject"));
 		driver.findElement(By.id("jscal_trigger_date_start")).click();
 		
-		int reqStartYear = 2027;
-		String reqStartDate = "9";
-		String reqStartMonth = "January";
+		String[] startDate = jutil.splitString(map.get("Start Date"), "-"); 
+		int reqStartYear = (Integer) jutil.convertStringToAnyDataType(startDate[0], DataType.INT);
+		String reqStartDate = startDate[2];
+		int reqStartMonth = jutil.convertMonthToInt(startDate[1]);
 		
 		String currentMonthYear = driver.findElement(By.xpath("//div[@class='calendar' and contains(@style,'block')]/descendant::td[@class='title']")).getText();
 		String[] str = currentMonthYear.split(", ");
@@ -147,12 +167,11 @@ public class CreateEventTest {
 		
 		driver.findElement(By.xpath("//input[@value='  Save']")).click();
 		WebElement adminWidget = driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']"));
-		Actions actions = new Actions(driver);
-		actions.moveToElement(adminWidget).perform();
+		driverUtil.mouseHover(adminWidget);
 		
 		driver.findElement(By.xpath("//a[text()='Sign Out']")).click();
 		
-		driver.quit();
+		driverUtil.quitAllWindows();
 	}
 
 }

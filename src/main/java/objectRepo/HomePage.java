@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import genericUtilities.TabNames;
 import genericUtilities.WebDriverUtility;
 
 /**
@@ -15,14 +16,8 @@ import genericUtilities.WebDriverUtility;
 public class HomePage {
 
 	// Declaration
-	@FindBy(xpath = "//a[contains(@href,'Accounts&action=index')]")
-	private WebElement organizationsTab;
 	
-	@FindBy(xpath = "//a[contains(@href,'Contacts&action=index')]")
-	private WebElement contactsTab;
-	
-	@FindBy(xpath = "//a[contains(@href, 'Leads&action=index')]")
-	private WebElement leadsTab;
+	private String commonPathForTabs = "//a[contains(@href,'%s&action=index')]";
 	
 	@FindBy(id = "qccombo")
 	private WebElement quickCreateDD;
@@ -41,24 +36,12 @@ public class HomePage {
 	// Utilization
 	
 	/**
-	 * This method clicks on Organizations tab
+	 * This method clicks on specified tab
+	 * @param driverUtil
+	 * @param tabName
 	 */
-	public void clickOrganizationsTab() {
-		organizationsTab.click();
-	}
-	
-	/**
-	 * This method clicks on Contacts tab
-	 */
-	public void clickContactsTab() {
-		contactsTab.click();
-	}
-	
-	/**
-	 * This method clicks on Leads tab
-	 */
-	public void clickLeadsTab() {
-		leadsTab.click();
+	public void clickRequiredTab(WebDriverUtility driverUtil, TabNames tabName) {
+		driverUtil.convertDynamicXpathToWebElement(commonPathForTabs, tabName).click();
 	}
 	
 	/**

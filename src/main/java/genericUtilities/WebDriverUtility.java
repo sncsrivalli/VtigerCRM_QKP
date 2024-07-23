@@ -326,10 +326,11 @@ public class WebDriverUtility {
 	/**
 	 * This method converts dynamic xpath to web element
 	 * @param dynamicPath
-	 * @param tabname
+	 * @param replaceData
 	 * @return WebElement
 	 */
-	public WebElement convertDynamicXpathToWebElement(String dynamicPath, TabNames tabname) {
-		return driver.findElement(By.xpath(String.format(dynamicPath, tabname.getTabName())));
+	public WebElement convertDynamicXpathToWebElement(String dynamicPath, String replaceData) {
+		return driver.findElement(By.xpath(String.format(dynamicPath, replaceData)));
+
 	}
 }

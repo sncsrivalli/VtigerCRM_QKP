@@ -41,7 +41,7 @@ public class HomePage {
 	 * @param tabName
 	 */
 	public void clickRequiredTab(WebDriverUtility driverUtil, TabNames tabName) {
-		driverUtil.convertDynamicXpathToWebElement(commonPathForTabs, tabName).click();
+		driverUtil.convertDynamicXpathToWebElement(commonPathForTabs, tabName.getTabName()).click();
 	}
 	
 	/**

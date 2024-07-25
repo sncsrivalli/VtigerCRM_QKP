@@ -17,7 +17,7 @@ import objectRepo.LoginPage;
 import objectRepo.OrganizationInformationPage;
 import objectRepo.OrganizationsPage;
 
-public class CreateOrganizationTest {
+public class CreateOrgWithTypeAndIndustryTest {
 
 	public static void main(String[] args) {
 		PropertiesUtility propertyUtil = new PropertiesUtility();
@@ -67,9 +67,10 @@ public class CreateOrganizationTest {
 		else
 			driverUtil.quitAllWindows();
 
-		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization");
-
+		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization With Industry And Type");
 		createOrg.setOrganizationName(map.get("Organization Name"));
+		createOrg.selectFromIndustryDD(driverUtil, map.get("Industry"));
+		createOrg.selectFromTypeDD(driverUtil, map.get("Type"));
 		createOrg.clickSaveBTN();
 
 		if (orgInfo.getPageHeader().contains(map.get("Organization Name")))
@@ -82,10 +83,10 @@ public class CreateOrganizationTest {
 
 		if (driver.getTitle().contains("Organizations")) {
 			System.out.println("Organizations Page is Displayed");
-			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Pass");
+			excel.writeToExcel("OrganizationsTestData", "Create Organization With Industry And Type", "Pass");
 		} else {
 			driverUtil.quitAllWindows();
-			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Fail");
+			excel.writeToExcel("OrganizationsTestData", "Create Organization With Industry And Type", "Fail");
 		}
 
 		excel.saveExcel(IConstantPath.EXCEL_PATH);

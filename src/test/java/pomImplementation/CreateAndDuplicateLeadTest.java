@@ -11,13 +11,14 @@ import genericUtilities.JavaUtility;
 import genericUtilities.PropertiesUtility;
 import genericUtilities.TabNames;
 import genericUtilities.WebDriverUtility;
-import objectRepo.CreatingNewOrganizationPage;
+import objectRepo.CreatingNewLeadPage;
+import objectRepo.DuplicatingPage;
 import objectRepo.HomePage;
+import objectRepo.LeadInformationPage;
+import objectRepo.LeadsPage;
 import objectRepo.LoginPage;
-import objectRepo.OrganizationInformationPage;
-import objectRepo.OrganizationsPage;
 
-public class CreateOrganizationTest {
+public class CreateAndDuplicateLeadTest {
 
 	public static void main(String[] args) {
 		PropertiesUtility propertyUtil = new PropertiesUtility();
@@ -37,9 +38,10 @@ public class CreateOrganizationTest {
 
 		LoginPage login = new LoginPage(driver);
 		HomePage home = new HomePage(driver);
-		OrganizationsPage organization = new OrganizationsPage(driver);
-		CreatingNewOrganizationPage createOrg = new CreatingNewOrganizationPage(driver);
-		OrganizationInformationPage orgInfo = new OrganizationInformationPage(driver);
+		LeadsPage leads = new LeadsPage(driver);
+		CreatingNewLeadPage createLead = new CreatingNewLeadPage(driver);
+		DuplicatingPage duplicateLead = new DuplicatingPage(driver);
+		LeadInformationPage leadInfo = new LeadInformationPage(driver);
 
 		if (driver.getTitle().contains("vtiger CRM"))
 			System.out.println("Login Page Displayed");
@@ -53,39 +55,47 @@ public class CreateOrganizationTest {
 		else
 			driverUtil.quitAllWindows();
 
-		home.clickRequiredTab(driverUtil, TabNames.ORGANIZATIONS);
+		home.clickRequiredTab(driverUtil, TabNames.LEADS);
 
 		if (driver.getTitle().contains("Organizations"))
 			System.out.println("Organizations Page is Displayed");
 		else
 			driverUtil.quitAllWindows();
 
-		organization.clickCreateOrgBTN();
+		leads.clickCreateLeadBTN();
 
-		if (createOrg.getPageHeader().equalsIgnoreCase("creating new organization"))
-			System.out.println("Creating New Organization Page is Displayed");
+		if (createLead.getPageHeader().equalsIgnoreCase("creating new lead"))
+			System.out.println("Creating New lead Page is Displayed");
 		else
 			driverUtil.quitAllWindows();
 
-		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization");
+		Map<String, String> map = excel.readFromExcel("LeadsTestData", "Create and Duplicate Lead");
+		String lastName = map.get("Last Name") + jutil.generateRandomNum(100);
+		createLead.setLeadLastName(lastName);
+		createLead.setCompanyName(map.get("Company"));
+		createLead.clickSaveBTN();
 
-		createOrg.setOrganizationName(map.get("Organization Name"));
-		createOrg.clickSaveBTN();
-
-		if (orgInfo.getPageHeader().contains(map.get("Organization Name")))
-			System.out.println("Organization created successfully");
+		if (leadInfo.getPageHeader().contains(lastName))
+			System.out.println("Lead created successfully");
 		else
 			driverUtil.quitAllWindows();
 
-		orgInfo.clickDeleteBTN();
-		driverUtil.handleAlert("ok");
+		leadInfo.clickDuplicateBTN();
+		if (duplicateLead.getPageHeader().contains("Duplicating"))
+			System.out.println("Duplicating lead page displayed");
+		else
+			driverUtil.quitAllWindows();
 
-		if (driver.getTitle().contains("Organizations")) {
-			System.out.println("Organizations Page is Displayed");
-			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Pass");
+		String newLastName = map.get("New Last Name") + jutil.generateRandomNum(100);
+		duplicateLead.setLeadLastName(newLastName);
+		duplicateLead.clickSaveBTN();
+
+		if (leadInfo.getPageHeader().contains(newLastName)) {
+			System.out.println("Duplicate Lead created successfully");
+			excel.writeToExcel("LeadsTestData", "Create and Duplicate Lead", "Pass");
 		} else {
 			driverUtil.quitAllWindows();
-			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Fail");
+			excel.writeToExcel("LeadsTestData", "Create and Duplicate Lead", "Fail");
 		}
 
 		excel.saveExcel(IConstantPath.EXCEL_PATH);

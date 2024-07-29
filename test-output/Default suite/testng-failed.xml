@@ -3,12 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testng.DependsOnMethodsTest">
+      <class name="assertions.Soft_Assert">
         <methods>
-          <include name="tc2"/>
-          <include name="tc1"/>
+          <include name="demo"/>
         </methods>
-      </class> <!-- testng.DependsOnMethodsTest -->
+      </class> <!-- assertions.Soft_Assert -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -6,11 +6,18 @@ import org.testng.annotations.Test;
 
 import genericUtilities.BaseClass;
 import genericUtilities.TabNames;
+import objectRepo.CreatingNewOrganizationPage;
+import objectRepo.OrganizationInformationPage;
+import objectRepo.OrganizationsPage;
 
 public class CreateOrganizationTest extends BaseClass {
 
 	@Test
 	public void createOrgTest() {
+		OrganizationsPage organization = pageObjectManager.getOrganization();
+		CreatingNewOrganizationPage createOrg = pageObjectManager.getCreateOrg();
+		OrganizationInformationPage orgInfo = pageObjectManager.getOrgInfo();
+		
 		home.clickRequiredTab(driverUtil, TabNames.ORGANIZATIONS);
 
 		if (driver.getTitle().contains("Organizations"))

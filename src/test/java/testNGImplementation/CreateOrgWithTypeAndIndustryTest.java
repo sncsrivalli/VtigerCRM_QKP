@@ -2,56 +2,21 @@ package testNGImplementation;
 
 import java.util.Map;
 
-import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 
-import genericUtilities.DataType;
-import genericUtilities.ExcelUtility;
-import genericUtilities.IConstantPath;
-import genericUtilities.JavaUtility;
-import genericUtilities.PropertiesUtility;
+import genericUtilities.BaseClass;
 import genericUtilities.TabNames;
-import genericUtilities.WebDriverUtility;
 import objectRepo.CreatingNewOrganizationPage;
-import objectRepo.HomePage;
-import objectRepo.LoginPage;
 import objectRepo.OrganizationInformationPage;
 import objectRepo.OrganizationsPage;
 
-public class CreateOrgWithTypeAndIndustryTest {
+public class CreateOrgWithTypeAndIndustryTest extends BaseClass {
 
-	public static void main(String[] args) {
-		PropertiesUtility propertyUtil = new PropertiesUtility();
-		ExcelUtility excel = new ExcelUtility();
-		JavaUtility jutil = new JavaUtility();
-		WebDriverUtility driverUtil = new WebDriverUtility();
-
-		propertyUtil.propertiesInit(IConstantPath.PROPERTIES_FILE_PATH);
-		excel.excelInit(IConstantPath.EXCEL_PATH);
-
-		WebDriver driver = driverUtil.launchBrowser(propertyUtil.readFromProperties("browser"));
-		driverUtil.maximizeBrowser();
-		driverUtil.navigateToApp(propertyUtil.readFromProperties("url"));
-
-		long time = (Long) jutil.convertStringToAnyDataType(propertyUtil.readFromProperties("timeouts"), DataType.LONG);
-		driverUtil.waitTillElementFound(time);
-
-		LoginPage login = new LoginPage(driver);
-		HomePage home = new HomePage(driver);
-		OrganizationsPage organization = new OrganizationsPage(driver);
-		CreatingNewOrganizationPage createOrg = new CreatingNewOrganizationPage(driver);
-		OrganizationInformationPage orgInfo = new OrganizationInformationPage(driver);
-
-		if (driver.getTitle().contains("vtiger CRM"))
-			System.out.println("Login Page Displayed");
-		else
-			driverUtil.quitAllWindows();
-
-		login.loginToVtiger(propertyUtil.readFromProperties("username"), propertyUtil.readFromProperties("password"));
-
-		if (driver.getTitle().contains("Home"))
-			System.out.println("Home Page is Displayed");
-		else
-			driverUtil.quitAllWindows();
+	@Test
+	public void createOrgWithTypeAndIndustryTest() {
+		OrganizationsPage organization = pageObjectManager.getOrganization();
+		CreatingNewOrganizationPage createOrg = pageObjectManager.getCreateOrg();
+		OrganizationInformationPage orgInfo = pageObjectManager.getOrgInfo();
 
 		home.clickRequiredTab(driverUtil, TabNames.ORGANIZATIONS);
 
@@ -88,12 +53,6 @@ public class CreateOrgWithTypeAndIndustryTest {
 			driverUtil.quitAllWindows();
 			excel.writeToExcel("OrganizationsTestData", "Create Organization With Industry And Type", "Fail");
 		}
-
-		excel.saveExcel(IConstantPath.EXCEL_PATH);
-
-		home.signOutOfVtiger(driverUtil);
-		excel.closeExcel();
-		driverUtil.quitAllWindows();
 	}
 
 }

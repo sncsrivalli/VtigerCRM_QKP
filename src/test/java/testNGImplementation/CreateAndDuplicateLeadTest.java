@@ -2,58 +2,23 @@ package testNGImplementation;
 
 import java.util.Map;
 
-import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 
-import genericUtilities.DataType;
-import genericUtilities.ExcelUtility;
-import genericUtilities.IConstantPath;
-import genericUtilities.JavaUtility;
-import genericUtilities.PropertiesUtility;
+import genericUtilities.BaseClass;
 import genericUtilities.TabNames;
-import genericUtilities.WebDriverUtility;
 import objectRepo.CreatingNewLeadPage;
 import objectRepo.DuplicatingPage;
-import objectRepo.HomePage;
 import objectRepo.LeadInformationPage;
 import objectRepo.LeadsPage;
-import objectRepo.LoginPage;
 
-public class CreateAndDuplicateLeadTest {
+public class CreateAndDuplicateLeadTest extends BaseClass {
 
-	public static void main(String[] args) {
-		PropertiesUtility propertyUtil = new PropertiesUtility();
-		ExcelUtility excel = new ExcelUtility();
-		JavaUtility jutil = new JavaUtility();
-		WebDriverUtility driverUtil = new WebDriverUtility();
-
-		propertyUtil.propertiesInit(IConstantPath.PROPERTIES_FILE_PATH);
-		excel.excelInit(IConstantPath.EXCEL_PATH);
-
-		WebDriver driver = driverUtil.launchBrowser(propertyUtil.readFromProperties("browser"));
-		driverUtil.maximizeBrowser();
-		driverUtil.navigateToApp(propertyUtil.readFromProperties("url"));
-
-		long time = (Long) jutil.convertStringToAnyDataType(propertyUtil.readFromProperties("timeouts"), DataType.LONG);
-		driverUtil.waitTillElementFound(time);
-
-		LoginPage login = new LoginPage(driver);
-		HomePage home = new HomePage(driver);
-		LeadsPage leads = new LeadsPage(driver);
-		CreatingNewLeadPage createLead = new CreatingNewLeadPage(driver);
-		DuplicatingPage duplicateLead = new DuplicatingPage(driver);
-		LeadInformationPage leadInfo = new LeadInformationPage(driver);
-
-		if (driver.getTitle().contains("vtiger CRM"))
-			System.out.println("Login Page Displayed");
-		else
-			driverUtil.quitAllWindows();
-
-		login.loginToVtiger(propertyUtil.readFromProperties("username"), propertyUtil.readFromProperties("password"));
-
-		if (driver.getTitle().contains("Home"))
-			System.out.println("Home Page is Displayed");
-		else
-			driverUtil.quitAllWindows();
+	@Test
+	public void createAndDuplicateLeadTest() {
+		LeadsPage leads = pageObjectManager.getLeads();
+		CreatingNewLeadPage createLead = pageObjectManager.getCreateLead();
+		DuplicatingPage duplicateLead = pageObjectManager.getDuplicateLead();
+		LeadInformationPage leadInfo = pageObjectManager.getLeadInfo();
 
 		home.clickRequiredTab(driverUtil, TabNames.LEADS);
 
@@ -97,12 +62,6 @@ public class CreateAndDuplicateLeadTest {
 			driverUtil.quitAllWindows();
 			excel.writeToExcel("LeadsTestData", "Create and Duplicate Lead", "Fail");
 		}
-
-		excel.saveExcel(IConstantPath.EXCEL_PATH);
-
-		home.signOutOfVtiger(driverUtil);
-		excel.closeExcel();
-		driverUtil.quitAllWindows();
 	}
 
 }

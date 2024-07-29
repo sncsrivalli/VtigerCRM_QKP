@@ -6,11 +6,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import objectRepo.CreatingNewOrganizationPage;
 import objectRepo.HomePage;
 import objectRepo.LoginPage;
-import objectRepo.OrganizationInformationPage;
-import objectRepo.OrganizationsPage;
+import objectRepo.PageObjectManager;
 
 public class BaseClass {
 
@@ -23,11 +21,10 @@ public class BaseClass {
 	
 	protected WebDriver driver;
 	
+	protected PageObjectManager pageObjectManager;
+	
 	protected LoginPage login;
 	protected HomePage home;
-	protected OrganizationsPage organization;
-	protected CreatingNewOrganizationPage createOrg;
-	protected OrganizationInformationPage orgInfo;
 	
 	@BeforeClass
 	public void classConfiguration() {
@@ -49,11 +46,9 @@ public class BaseClass {
 	public void methodConfiguration() {
 		driverUtil.navigateToApp(propertyUtil.readFromProperties("url"));
 
-		login = new LoginPage(driver);
-		home = new HomePage(driver);
-		organization = new OrganizationsPage(driver);
-		createOrg = new CreatingNewOrganizationPage(driver);
-		orgInfo = new OrganizationInformationPage(driver);
+		pageObjectManager = new PageObjectManager(driver);
+		login = pageObjectManager.getLogin();
+		home = pageObjectManager.getHome();
 		
 		if (driver.getTitle().contains("vtiger CRM"))
 			System.out.println("Login Page Displayed");

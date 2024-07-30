@@ -10,14 +10,14 @@ import objectRepo.EventInformationPage;
 
 public class CreateEventTest extends BaseClass {
 
-	@Test
+	@Test(groups = "events")
 	public void createEventTest() {		
 		CreateToDoPage createToDo = pageObjectManager.getCreateToDo();
 		EventInformationPage eventInfo = pageObjectManager.getEventInfo();
 		
 		Map<String, String> map = excel.readFromExcel("EventsTestData", "Create New Event");
 		home.selectFromQuickCreateDD(driverUtil, map.get("Quick Create"));
-		
+
 		jutil.waiting(3000);
 
 		String subject = map.get("Subject") + jutil.generateRandomNum(100);
@@ -32,16 +32,15 @@ public class CreateEventTest extends BaseClass {
 
 		createToDo.clickSaveBTN();
 		
-		if (eventInfo.getPageHeader().contains(subject)) {
-			System.out.println("Event Created");
+		soft.assertTrue(eventInfo.getPageHeader().contains(subject));
+		if (eventInfo.getPageHeader().contains(subject)) 
 			excel.writeToExcel("EventsTestData", "Create New Event", "Pass");
-		} else {
-			System.out.println("Event Not Created");
+		else
 			excel.writeToExcel("EventsTestData", "Create New Event", "Fail");
-		}
 
 		eventInfo.clickDeleteBTN();
 		driverUtil.handleAlert("ok");
+		soft.assertAll();
 	}
 
 }

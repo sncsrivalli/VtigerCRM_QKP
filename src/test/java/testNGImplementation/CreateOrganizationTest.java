@@ -12,7 +12,7 @@ import objectRepo.OrganizationsPage;
 
 public class CreateOrganizationTest extends BaseClass {
 
-	@Test
+	@Test(groups = "organizations")
 	public void createOrgTest() {
 		OrganizationsPage organization = pageObjectManager.getOrganization();
 		CreatingNewOrganizationPage createOrg = pageObjectManager.getCreateOrg();
@@ -20,38 +20,28 @@ public class CreateOrganizationTest extends BaseClass {
 		
 		home.clickRequiredTab(driverUtil, TabNames.ORGANIZATIONS);
 
-		if (driver.getTitle().contains("Organizations"))
-			System.out.println("Organizations Page is Displayed");
-		else
-			driverUtil.quitAllWindows();
-
+		soft.assertTrue(driver.getTitle().contains("Organizations"));
+		
 		organization.clickCreateOrgBTN();
 
-		if (createOrg.getPageHeader().equalsIgnoreCase("creating new organization"))
-			System.out.println("Creating New Organization Page is Displayed");
-		else
-			driverUtil.quitAllWindows();
-
+		soft.assertTrue(createOrg.getPageHeader().equalsIgnoreCase("creating new organization"));
+		
 		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization");
 
 		createOrg.setOrganizationName(map.get("Organization Name"));
 		createOrg.clickSaveBTN();
 
-		if (orgInfo.getPageHeader().contains(map.get("Organization Name")))
-			System.out.println("Organization created successfully");
-		else
-			driverUtil.quitAllWindows();
-
+		soft.assertTrue(orgInfo.getPageHeader().contains(map.get("Organization Name")));
+		
 		orgInfo.clickDeleteBTN();
 		driverUtil.handleAlert("ok");
 
-		if (driver.getTitle().contains("Organizations")) {
-			System.out.println("Organizations Page is Displayed");
+		soft.assertTrue(driver.getTitle().contains("Organizations"));
+		if (driver.getTitle().contains("Organizations")) 
 			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Pass");
-		} else {
-			driverUtil.quitAllWindows();
+		else 
 			excel.writeToExcel("OrganizationsTestData", "Create Organization", "Fail");
-		}
+		soft.assertAll();
 	}
 
 }

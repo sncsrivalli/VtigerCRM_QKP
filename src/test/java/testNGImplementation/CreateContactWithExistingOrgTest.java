@@ -12,24 +12,18 @@ import objectRepo.CreatingNewContactPage;
 
 public class CreateContactWithExistingOrgTest extends BaseClass{
 
-	@Test
+	@Test(groups = "contacts")
 	public void createContact() {
 		ContactsPage contact = pageObjectManager.getContacts();
 		CreatingNewContactPage createContact = pageObjectManager.getCreateContact();
 		ContactInformationPage contactInfo = pageObjectManager.getContactInfo();
 		
 		home.clickRequiredTab(driverUtil, TabNames.CONTACTS);
-		if (driver.getTitle().contains("Contacts"))
-			System.out.println("Contacts Page Displayed");
-		else
-			driverUtil.quitAllWindows();
+		soft.assertTrue(driver.getTitle().contains("Contacts"));
 		
 		contact.clickCreateContactBTN();
 
-		if (createContact.getPageHeader().equalsIgnoreCase("Creating new contact"))
-			System.out.println("Creating New Contact Page is Displayed");
-		else
-			driverUtil.quitAllWindows();
+		soft.assertTrue(createContact.getPageHeader().equalsIgnoreCase("Creating new contact"));
 		
 		Map<String, String> map = excel.readFromExcel("ContactsTestData", "Create Contact With Organization");
 		
@@ -38,22 +32,17 @@ public class CreateContactWithExistingOrgTest extends BaseClass{
 
 		createContact.clickSaveBTN();
 
-		if (contactInfo.getPageHeader().contains(map.get("Last Name")))
-			System.out.println("Contact created successfully");
-		else
-			driverUtil.quitAllWindows();
+		soft.assertTrue(contactInfo.getPageHeader().contains(map.get("Last Name")));
 		
 		contactInfo.clickDeleteBTN();
 		driverUtil.handleAlert("ok");
 		
-		if(driver.getTitle().contains("Contacts")) {
-			System.out.println("Contacts Page is Displayed");
+		soft.assertTrue(driver.getTitle().contains("Contacts"));
+		if(driver.getTitle().contains("Contacts")) 
 			excel.writeToExcel("ContactsTestData", "Create Contact With Organization", "Pass");
-		}
-		else {
-			driverUtil.quitAllWindows();
+		else 
 			excel.writeToExcel("ContactsTestData", "Create Contact With Organization", "Fail");
-		}
+		soft.assertAll();
 	}
 
 }

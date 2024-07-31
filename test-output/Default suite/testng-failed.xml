@@ -3,11 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="assertions.Soft_Assert">
+      <class name="testNGImplementation.CreateAndDuplicateLeadTest">
         <methods>
-          <include name="demo"/>
+          <include name="classConfiguration"/>
+          <include name="createAndDuplicateLeadTest"/>
+          <include name="classTeardown"/>
+          <include name="methodConfiguration"/>
+          <include name="methodTeardown"/>
         </methods>
-      </class> <!-- assertions.Soft_Assert -->
+      </class> <!-- testNGImplementation.CreateAndDuplicateLeadTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

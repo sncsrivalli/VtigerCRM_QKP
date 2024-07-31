@@ -22,7 +22,7 @@ public class CreateAndDuplicateLeadTest extends BaseClass {
 
 		home.clickRequiredTab(driverUtil, TabNames.LEADS);
 
-		soft.assertTrue(driver.getTitle().contains("Organizations"));
+		soft.assertTrue(driver.getTitle().contains("Leads"));
 
 		leads.clickCreateLeadBTN();
 

@@ -6,6 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 
 import objectRepo.HomePage;
@@ -13,7 +14,7 @@ import objectRepo.LoginPage;
 import objectRepo.PageObjectManager;
 
 public class BaseClass {
-
+	
 	//@BeforeSuite
 	//@BeforeTest
 	protected PropertiesUtility propertyUtil;
@@ -30,6 +31,7 @@ public class BaseClass {
 	
 	protected SoftAssert soft;
 	
+	//@Parameters("BROWSER")
 	@BeforeClass(groups = "important")
 	public void classConfiguration() {
 		propertyUtil = new PropertiesUtility();
@@ -39,7 +41,7 @@ public class BaseClass {
 
 		propertyUtil.propertiesInit(IConstantPath.PROPERTIES_FILE_PATH);
 		excel.excelInit(IConstantPath.EXCEL_PATH);
-		
+		//driver = driverUtil.launchBrowser(browser);
 		driver = driverUtil.launchBrowser(propertyUtil.readFromProperties("browser"));
 		driverUtil.maximizeBrowser();
 		long time = (Long) jutil.convertStringToAnyDataType(propertyUtil.readFromProperties("timeouts"), DataType.LONG);

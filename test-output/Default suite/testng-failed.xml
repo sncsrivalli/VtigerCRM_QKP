@@ -3,15 +3,19 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testNGImplementation.CreateAndDuplicateLeadTest">
+      <class name="listener.TestClass">
         <methods>
-          <include name="classConfiguration"/>
-          <include name="createAndDuplicateLeadTest"/>
+          <include name="testTeardown"/>
+          <include name="classSetup"/>
+          <include name="suiteTeardown"/>
           <include name="classTeardown"/>
-          <include name="methodConfiguration"/>
+          <include name="demo"/>
+          <include name="methodSetup"/>
+          <include name="testSetup"/>
+          <include name="suiteSetup"/>
           <include name="methodTeardown"/>
         </methods>
-      </class> <!-- testNGImplementation.CreateAndDuplicateLeadTest -->
+      </class> <!-- listener.TestClass -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

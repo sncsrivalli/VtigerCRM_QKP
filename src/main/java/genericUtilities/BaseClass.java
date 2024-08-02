@@ -24,6 +24,9 @@ public class BaseClass {
 	
 	protected WebDriver driver;
 	
+	public static WebDriver sdriver;
+	public static JavaUtility sjutil;
+	
 	protected PageObjectManager pageObjectManager;
 	
 	protected LoginPage login;
@@ -46,6 +49,9 @@ public class BaseClass {
 		driverUtil.maximizeBrowser();
 		long time = (Long) jutil.convertStringToAnyDataType(propertyUtil.readFromProperties("timeouts"), DataType.LONG);
 		driverUtil.waitTillElementFound(time);
+		
+		sdriver = driver;
+		sjutil = jutil;
 	}
 	
 	@BeforeMethod(groups = "important")

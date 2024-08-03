@@ -10,6 +10,7 @@ import objectRepo.CreatingNewOrganizationPage;
 import objectRepo.OrganizationInformationPage;
 import objectRepo.OrganizationsPage;
 
+//@Listeners(genericUtilities.ListenerImplementation.class)
 public class CreateOrgWithTypeAndIndustryTest extends BaseClass {
 
 	@Test(groups = "organizations")
@@ -27,12 +28,13 @@ public class CreateOrgWithTypeAndIndustryTest extends BaseClass {
 		soft.assertTrue(createOrg.getPageHeader().equalsIgnoreCase("creating new organization"));
 
 		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization With Industry And Type");
-		createOrg.setOrganizationName(map.get("Organization Name"));
+		String orgName = map.get("Organization Name") + jutil.generateRandomNum(100);
+		createOrg.setOrganizationName(orgName);
 		createOrg.selectFromIndustryDD(driverUtil, map.get("Industry"));
 		createOrg.selectFromTypeDD(driverUtil, map.get("Type"));
 		createOrg.clickSaveBTN();
 
-		soft.assertTrue(orgInfo.getPageHeader().contains(map.get("Organization Name")));
+		soft.assertTrue(orgInfo.getPageHeader().contains(orgName));
 		
 		orgInfo.clickDeleteBTN();
 		driverUtil.handleAlert("ok");

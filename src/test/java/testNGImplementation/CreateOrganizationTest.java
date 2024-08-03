@@ -27,11 +27,11 @@ public class CreateOrganizationTest extends BaseClass {
 		soft.assertTrue(createOrg.getPageHeader().equalsIgnoreCase("creating new organization"));
 		
 		Map<String, String> map = excel.readFromExcel("OrganizationsTestData", "Create Organization");
-
-		createOrg.setOrganizationName(map.get("Organization Name"));
+		String orgName = map.get("Organization Name") + jutil.generateRandomNum(100);
+		createOrg.setOrganizationName(orgName);
 		createOrg.clickSaveBTN();
 
-		soft.assertTrue(orgInfo.getPageHeader().contains(map.get("Organization Name")));
+		soft.assertTrue(orgInfo.getPageHeader().contains(orgName));
 		
 		orgInfo.clickDeleteBTN();
 		driverUtil.handleAlert("ok");

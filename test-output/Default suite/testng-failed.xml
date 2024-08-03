@@ -3,19 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="listener.TestClass">
+      <class name="testng.RetryTest">
         <methods>
-          <include name="testTeardown"/>
-          <include name="classSetup"/>
-          <include name="suiteTeardown"/>
-          <include name="classTeardown"/>
           <include name="demo"/>
-          <include name="methodSetup"/>
-          <include name="testSetup"/>
-          <include name="suiteSetup"/>
-          <include name="methodTeardown"/>
         </methods>
-      </class> <!-- listener.TestClass -->
+      </class> <!-- testng.RetryTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

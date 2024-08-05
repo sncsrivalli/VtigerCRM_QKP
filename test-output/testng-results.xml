@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
-    <line>
-      <![CDATA[demo]]>
-    </line>
   </reporter-output>
-  <suite started-at="2024-08-03T10:41:27 IST" name="Failed suite [Suite]" finished-at="2024-08-03T10:41:27 IST" duration-ms="55">
+  <suite started-at="2024-08-04T18:28:21 IST" name="Default suite" finished-at="2024-08-04T18:30:32 IST" duration-ms="130963">
     <groups>
+      <group name="organizations">
+        <method signature="CreateOrganizationTest.createOrgTest()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" name="createOrgTest" class="testNGImplementation.CreateOrganizationTest"/>
+      </group> <!-- organizations -->
     </groups>
-    <test started-at="2024-08-03T10:41:27 IST" name="Test(failed)" finished-at="2024-08-03T10:41:27 IST" duration-ms="55">
-      <class name="testng.RetryTest">
-        <test-method signature="demo()[pri:0, instance:testng.RetryTest@3059cbc]" started-at="2024-08-03T10:41:27 IST" name="demo" finished-at="2024-08-03T10:41:27 IST" duration-ms="13" status="PASS">
+    <test started-at="2024-08-04T18:28:21 IST" name="Default test" finished-at="2024-08-04T18:30:32 IST" duration-ms="130963">
+      <class name="testNGImplementation.CreateOrganizationTest">
+        <test-method is-config="true" signature="classConfiguration()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" started-at="2024-08-04T18:28:21 IST" name="classConfiguration" finished-at="2024-08-04T18:28:34 IST" duration-ms="12590" status="PASS">
           <reporter-output>
-            <line>
-              <![CDATA[demo]]>
-            </line>
           </reporter-output>
-        </test-method> <!-- demo -->
-      </class> <!-- testng.RetryTest -->
-    </test> <!-- Test(failed) -->
-  </suite> <!-- Failed suite [Suite] -->
+        </test-method> <!-- classConfiguration -->
+        <test-method is-config="true" signature="methodConfiguration()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" started-at="2024-08-04T18:28:34 IST" name="methodConfiguration" finished-at="2024-08-04T18:29:05 IST" duration-ms="31469" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodConfiguration -->
+        <test-method signature="createOrgTest()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" started-at="2024-08-04T18:29:05 IST" name="createOrgTest" finished-at="2024-08-04T18:30:08 IST" duration-ms="62408" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createOrgTest -->
+        <test-method is-config="true" signature="methodTeardown()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" started-at="2024-08-04T18:30:08 IST" name="methodTeardown" finished-at="2024-08-04T18:30:25 IST" duration-ms="17134" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodTeardown -->
+        <test-method is-config="true" signature="classTeardown()[pri:0, instance:testNGImplementation.CreateOrganizationTest@35aea049]" started-at="2024-08-04T18:30:25 IST" name="classTeardown" finished-at="2024-08-04T18:30:32 IST" duration-ms="7046" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- classTeardown -->
+      </class> <!-- testNGImplementation.CreateOrganizationTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>

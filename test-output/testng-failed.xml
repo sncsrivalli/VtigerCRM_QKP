@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="fitpeoScript.TestScript">
+      <class name="additionalScenarios.SpiceJetDatePickerTest">
         <methods>
-          <include name="fitPeoTest"/>
+          <include name="datePickerTest"/>
         </methods>
-      </class> <!-- fitpeoScript.TestScript -->
+      </class> <!-- additionalScenarios.SpiceJetDatePickerTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

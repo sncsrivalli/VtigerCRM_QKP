@@ -10,7 +10,7 @@ import objectRepo.CreatingNewLeadPage;
 import objectRepo.DuplicatingPage;
 import objectRepo.LeadInformationPage;
 import objectRepo.LeadsPage;
-
+// This test verifies if user is able to create and duplicate lead 
 public class CreateAndDuplicateLeadTest extends BaseClass {
 
 	@Test(groups = "leads")

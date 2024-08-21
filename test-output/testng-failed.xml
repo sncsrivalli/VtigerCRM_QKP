@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="additionalScenarios.SpiceJetDatePickerTest">
+      <class name="chromeoptionsClass.PracticeTest1">
         <methods>
-          <include name="datePickerTest"/>
+          <include name="startMaximizedBrowser"/>
         </methods>
-      </class> <!-- additionalScenarios.SpiceJetDatePickerTest -->
+      </class> <!-- chromeoptionsClass.PracticeTest1 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

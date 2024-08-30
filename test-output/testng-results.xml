@@ -2,16 +2,31 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
+<<<<<<< HEAD
   <suite started-at="2024-08-30T10:45:49 IST" name="Default suite" finished-at="2024-08-30T10:46:05 IST" duration-ms="16255">
+=======
+  <suite started-at="2024-08-19T10:25:20 IST" name="Default suite" finished-at="2024-08-19T10:25:44 IST" duration-ms="24191">
+>>>>>>> branch 'master' of https://github.com/sncsrivalli/VtigerCRM_QKP.git
     <groups>
     </groups>
+<<<<<<< HEAD
     <test started-at="2024-08-30T10:45:49 IST" name="Default test" finished-at="2024-08-30T10:46:05 IST" duration-ms="16255">
       <class name="seleniumGrid.Practice1">
         <test-method signature="gridPracticeTest()[pri:0, instance:seleniumGrid.Practice1@50b5ac82]" started-at="2024-08-30T10:45:49 IST" name="gridPracticeTest" finished-at="2024-08-30T10:46:05 IST" duration-ms="16158" status="PASS">
+=======
+    <test started-at="2024-08-19T10:25:20 IST" name="Default test" finished-at="2024-08-19T10:25:44 IST" duration-ms="24191">
+      <class name="chromeoptionsClass.HandleAnyNotifications">
+        <test-method signature="handleNotifications()[pri:0, instance:chromeoptionsClass.HandleAnyNotifications@55b7a4e0]" started-at="2024-08-19T10:25:20 IST" name="handleNotifications" finished-at="2024-08-19T10:25:44 IST" duration-ms="24130" status="PASS">
+>>>>>>> branch 'master' of https://github.com/sncsrivalli/VtigerCRM_QKP.git
           <reporter-output>
           </reporter-output>
+<<<<<<< HEAD
         </test-method> <!-- gridPracticeTest -->
       </class> <!-- seleniumGrid.Practice1 -->
+=======
+        </test-method> <!-- handleNotifications -->
+      </class> <!-- chromeoptionsClass.HandleAnyNotifications -->
+>>>>>>> branch 'master' of https://github.com/sncsrivalli/VtigerCRM_QKP.git
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

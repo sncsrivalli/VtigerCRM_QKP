@@ -18,7 +18,6 @@ import org.testng.asserts.SoftAssert;
 
 
 // This is TestScript of fitpeoscript
-
 public class TestScript {
 
 	@Test
@@ -81,6 +80,8 @@ public class TestScript {
 		WebElement totalRecurringReimbursement = driver
 				.findElement(By.xpath("//p[text()='Total Recurring Reimbursement for all Patients Per Month:']/p"));
 		soft.assertTrue(totalRecurringReimbursement.getText().contains("110700"));
+		Thread.sleep(2000);
+
 
 		driver.quit();
 		soft.assertAll();
